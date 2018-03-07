@@ -17,19 +17,24 @@ tags.each do |tag|
   end
 
   doc = Nokogiri::HTML.parse(html, nil, nil)
+
+  hatebu = Hatena::Bookmark.new(
+    consumer_key:    ARGV[0],
+    consumer_secret: ARGV[1],
+    request_token:   ARGV[2],
+    request_secret:  ARGV[3]
+  )
+
   doc.css(".search-result blockquote .created").each do |day|
     doc.css(".search-result h3 a").each do |a|
-      url = a[:href]
 
-      hatebu = Hatena::Bookmark.new(
-        #keys
-      )
+      created_at = day.inner_text.gsub(" ", "")
+      latest_provisional = Date.today - 1
+      latest = latest_provisional.to_s.gsub("-","/")
 
-      today = Date.today.to_s.gsub("-","/")
-
-      if day = today
-          hatebu.create(:url => url)
-          p "bookmarked: " + url + " today is " +day
+      if created_at == latest
+          hatebu.create(:url => a[:href])
+          p "bookmarked: " + a[:href]
       end
 
       sleep(rand(100))
