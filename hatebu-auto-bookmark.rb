@@ -33,7 +33,7 @@ tags.each do |tag|
       latest = latest_provisional.to_s.gsub("-","/")
 
       if created_at == latest
-          hatebu.create(:url => a[:href])
+          hatebu.create(url: a[:href])
           p "bookmarked: " + a[:href]
       end
 
