@@ -17,17 +17,24 @@ tags.each do |tag|
 
   doc = Nokogiri::HTML.parse(html, nil, nil)
   doc.css(".search-result h3 a").each do |a|
-    url = a[:href]
-    p url
 
     hatebu = Hatena::Bookmark.new(
-      consumer_key:    "取得",
-      consumer_secret: "取得",
-      request_token:   "取得",
-      request_secret:  "取得"
+      # consumer keyなど
     )
 
-    hatebu.create(:url => url)
+    feed =  hatebu.feed
+    bookmarks = feed["feed"]["entry"]
+    bookmarks.each do |bkm|
+      url = a[:href]
+      already = bkm["link"][0]["href"]
+      if !already.include?(url)
+        hatebu.create(:url => url)
+        p "Successfully bookmarked: " + url
+      else
+        p "That url has been already bookmarked"
+      end
+    end
+
     sleep(rand(100))
   end
 end
