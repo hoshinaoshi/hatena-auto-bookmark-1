@@ -3,11 +3,12 @@ require "open-uri"
 require "nokogiri"
 require "date"
 
-tags = %w(activerecord agile ai android api app ar aws bash batch bootstrap c# c++ cakephp ci chrome css css3 dart database db deeplearning design dev development dns docker electron font frontend gas gcp git github go golang haskell html html5 http https ibm ide ios java javascript jquery js json jvm kubernetes laravel linux machinelearning macos monitoring mysql node.js npm nuxt.js oracle oss performance php postgresql programming python qiita rails raspberrypi rds react ruby rust scala selenium shell sql ssl swift tcp tech techfeed technology tensorflow typescript ubuntu ui uml unity ux vagrant virtualbox vmware vr vue vue.js web webdesign webpack xcode webアプリケーション webデザイン web制作 エディタ エンジニア コンテナ サーバ システム ディープラーニング デザイン データ ドメイン フォント フリーソフト フロントエンド プラグイン プログラミング ライブラリ 人工知能 機械学習 深層学習 素材 設計 開発)
+tags = %w(activerecord aws bootstrap css css3 database db design dev development docker font frontend git github html html5 javascript js linux macos mysql node.js npm postgresql programming qiita rails react ruby sql tech techfeed technology ubuntu ui ux vue vue.js web webdesign webpack webアプリケーション webデザイン web制作 エディタ エンジニア コンテナ サーバ システム デザイン データ フォント フロントエンド プログラミング 設計 開発)
 
 tags.each do |tag|
   p "Starting to get: " + tag
-  url = URI.encode "http://b.hatena.ne.jp/search/tag?safe=on&q=#{tag}&users=50"
+  url = URI.encode "http://b.hatena.ne.jp/search/tag?safe=on&q=#{tag}&users=30"
+  # タグ1つあたり平均1件ほどブクマされるように絞り込み
 
   html = open(
     url,
