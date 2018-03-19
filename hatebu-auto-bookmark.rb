@@ -3,12 +3,11 @@ require "open-uri"
 require "nokogiri"
 require "date"
 
-# tags = %w(activerecord aws bootstrap css css3 database db design dev development docker font frontend git github html html5 javascript js linux macos mysql node.js npm postgresql programming qiita rails react ruby sql tech techfeed technology ubuntu ui ux vue vue.js web webdesign webpack webアプリケーション webデザイン web制作 エディタ エンジニア コンテナ サーバ システム デザイン データ フォント フロントエンド プログラミング 設計 開発)
-tags = %w(デザイン データ フォント フロントエンド プログラミング 設計 開発)
+tags = %w(activerecord aws bootstrap css css3 database db design dev development docker font frontend git github html html5 javascript js linux macos mysql node.js npm postgresql programming qiita rails react ruby sql tech techfeed technology ubuntu ui ux vue vue.js web webdesign webpack webアプリケーション webデザイン web制作 エディタ エンジニア コンテナ サーバ システム デザイン データ フォント フロントエンド プログラミング 設計 開発)
 
 tags.each do |tag|
   p "Starting to get: " + tag
-  url = URI.encode "http://b.hatena.ne.jp/search/tag?safe=on&q=#{tag}&users=20"
+  url = URI.encode "http://b.hatena.ne.jp/search/tag?safe=on&q=#{tag}&users=" + ARGV[4]
   # タグ1つあたり平均1件ほどブクマされるように絞り込み
 
   html = open(
@@ -30,7 +29,7 @@ tags.each do |tag|
     request_secret:  ARGV[3]
   )
 
-  for num in 0..19
+  for num in 0..9 # タグ1つあたりの新着記事は多くの場合せいぜい3件程度であるため
     created_at = doc.css(".search-result blockquote .created")[num].inner_text.gsub(" ", "")
     latest_provisional = Date.today - 1
     latest = latest_provisional.to_s.gsub("-","/")
