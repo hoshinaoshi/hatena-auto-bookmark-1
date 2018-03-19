@@ -4,7 +4,7 @@ require "nokogiri"
 require "date"
 
 # tags = %w(activerecord aws bootstrap css css3 database db design dev development docker font frontend git github html html5 javascript js linux macos mysql node.js npm postgresql programming qiita rails react ruby sql tech techfeed technology ubuntu ui ux vue vue.js web webdesign webpack webアプリケーション webデザイン web制作 エディタ エンジニア コンテナ サーバ システム デザイン データ フォント フロントエンド プログラミング 設計 開発)
-tags = %w(activerecord aws bootstrap css database db design dev development docker font frontend git github html html5 javascript js linux macos mysql node.js npm postgresql programming qiita rails react ruby sql tech techfeed technology ubuntu ui ux vue vue.js web webdesign webpack webアプリケーション webデザイン web制作 エディタ エンジニア コンテナ サーバ システム デザイン データ フォント フロントエンド プログラミング 設計 開発)
+tags = %w(デザイン データ フォント フロントエンド プログラミング 設計 開発)
 
 tags.each do |tag|
   p "Starting to get: " + tag
@@ -30,7 +30,7 @@ tags.each do |tag|
     request_secret:  ARGV[3]
   )
 
-  for num in 0..39
+  for num in 0..19
     created_at = doc.css(".search-result blockquote .created")[num].inner_text.gsub(" ", "")
     latest_provisional = Date.today - 1
     latest = latest_provisional.to_s.gsub("-","/")
@@ -40,7 +40,7 @@ tags.each do |tag|
         hatebu.create(url: doc.css(".search-result h3 a")[num][:href])
         p "Bookmarked: " + doc.css(".search-result h3 a")[num][:href]
     else
-      puts "NOO"
+      puts "Not Bookmarked: " + doc.css(".search-result h3 a")[num][:href]
     end
 
     sleep(rand(10))
