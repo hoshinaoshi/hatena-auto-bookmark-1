@@ -3,11 +3,12 @@ require "open-uri"
 require "nokogiri"
 require "date"
 
-tags = %w(activerecord aws bootstrap css css3 database db design dev development docker font frontend git github html html5 javascript js linux macos mysql node.js npm postgresql programming qiita rails react ruby sql tech techfeed technology ubuntu ui ux vue vue.js web webdesign webpack webアプリケーション webデザイン web制作 エディタ エンジニア コンテナ サーバ システム デザイン データ フォント フロントエンド プログラミング 設計 開発)
+# tags = %w(activerecord aws bootstrap css css3 database db design dev development docker font frontend git github html html5 javascript js linux macos mysql node.js npm postgresql programming qiita rails react ruby sql tech techfeed technology ubuntu ui ux vue vue.js web webdesign webpack webアプリケーション webデザイン web制作 エディタ エンジニア コンテナ サーバ システム デザイン データ フォント フロントエンド プログラミング 設計 開発)
+tags = %w(activerecord aws bootstrap css database db design dev development docker font frontend git github html html5 javascript js linux macos mysql node.js npm postgresql programming qiita rails react ruby sql tech techfeed technology ubuntu ui ux vue vue.js web webdesign webpack webアプリケーション webデザイン web制作 エディタ エンジニア コンテナ サーバ システム デザイン データ フォント フロントエンド プログラミング 設計 開発)
 
 tags.each do |tag|
   p "Starting to get: " + tag
-  url = URI.encode "http://b.hatena.ne.jp/search/tag?safe=on&q=#{tag}&users=30"
+  url = URI.encode "http://b.hatena.ne.jp/search/tag?safe=on&q=#{tag}&users=20"
   # タグ1つあたり平均1件ほどブクマされるように絞り込み
 
   html = open(
@@ -29,21 +30,20 @@ tags.each do |tag|
     request_secret:  ARGV[3]
   )
 
-  doc.css(".search-result blockquote .created").each do |day|
-    doc.css(".search-result h3 a").each do |a|
+  for num in 0..39
+    created_at = doc.css(".search-result blockquote .created")[num].inner_text.gsub(" ", "")
+    latest_provisional = Date.today - 1
+    latest = latest_provisional.to_s.gsub("-","/")
 
-      created_at = day.inner_text.gsub(" ", "")
-      latest_provisional = Date.today - 1
-      latest = latest_provisional.to_s.gsub("-","/")
-
-      if created_at == latest
-          # 今日のエントリーを取得しても今日中にまた更新される可能性があるため、前日更新のエントリーをブクマする
-          hatebu.create(url: a[:href])
-          p "Bookmarked: " + a[:href]
-      end
-
-      sleep(rand(100))
-
+    if created_at == latest
+        # 今日のエントリーを取得しても今日中にまた更新される可能性があるため、前日更新のエントリーをブクマする
+        hatebu.create(url: doc.css(".search-result h3 a")[num][:href])
+        p "Bookmarked: " + doc.css(".search-result h3 a")[num][:href]
+    else
+      puts "NOO"
     end
+
+    sleep(rand(10))
   end
+
 end
