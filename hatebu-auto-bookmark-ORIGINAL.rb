@@ -7,7 +7,7 @@ tags = %w(activerecord aws bootstrap css css3 database db design dev development
 
 tags.each do |tag|
   p "Starting to get: " + tag
-  url = URI.encode "http://b.hatena.ne.jp/search/tag?safe=on&q=#{tag}&users=" + ARGV[4]
+  url = URI.encode "http://b.hatena.ne.jp/search/tag?safe=on&q=#{tag}&users=20"
   # タグ1つあたり平均1件ほどブクマされるように絞り込み
 
   html = open(
