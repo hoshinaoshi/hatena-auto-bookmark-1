@@ -1,3 +1,5 @@
+# 使用しない
+
 require "hatena-bookmark"
 require "open-uri"
 require "nokogiri"
