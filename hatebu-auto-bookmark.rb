@@ -1,3 +1,5 @@
+# 使用しない
+
 require "hatena-bookmark"
 require "open-uri"
 require "nokogiri"
@@ -10,36 +12,25 @@ tags.each do |tag|
   url = URI.encode "http://b.hatena.ne.jp/search/tag?safe=on&q=#{tag}&users=3"
   # タグ1つあたり平均1件ほどブクマされるように絞り込み
 
-  html = open(
-    url,
-    {"User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"}
-    # はてブのページはUserAgentを偽装しないと取得できない
-    ) do |f|
+  html = open(url, option) do |f|
     charset = f.charset
     f.read
-    # 文字化け回避
   end
 
   doc = Nokogiri::HTML.parse(html, nil, nil)
-
-  hatebu = Hatena::Bookmark.new(
-    consumer_key:    ARGV[0],
-    consumer_secret: ARGV[1],
-    request_token:   ARGV[2],
-    request_secret:  ARGV[3]
-  )
-
   doc.css(".search-result blockquote .created").each do |day|
     doc.css(".search-result h3 a").each do |a|
+      url = a[:href]
 
-      created_at = day.inner_text.gsub(" ", "")
-      latest_provisional = Date.today - 1
-      latest = latest_provisional.to_s.gsub("-","/")
+      hatebu = Hatena::Bookmark.new(
+        #keys
+      )
 
-      if created_at == latest
-          # 今日のエントリーを取得しても今日中にまた更新される可能性があるため、前日更新のエントリーをブクマする
-          hatebu.create(url: a[:href])
-          p "Bookmarked: " + a[:href]
+      today = Date.today.to_s.gsub("-","/")
+
+      if day = today
+          hatebu.create(:url => url)
+          p "bookmarked: " + url + " today is " +day
       end
 
       sleep(rand(100))
