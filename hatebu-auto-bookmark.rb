@@ -17,11 +17,14 @@ tags = # ブクマパターンを変えてカモフラージュ
     %w(activerecord aws dev ラーメン development 歴史 docker git github 犯罪 linux 雑談 これはひどい ジェンダー mysql node.js npm programming qiita rails react ruby sql vue vue.js ネット webアプリケーション ネタ webデザイン web制作 エディタ エンジニア 大阪 東京 人生 コンテナ サーバ プログラミング 設計 開発)
   elsif arg == "rhodia"
     %w(database db カメラ design dev development docker オカルト frontend git github html html5 お金 javascript js linux macos qiita tech techfeed technology ubuntu ui ux vue vue.js web webdesign webpack webアプリケーション 海外 webデザイン web制作 エディタ エンジニア コンテナ サーバ システム コーヒー デザイン フロントエンド プログラミング 設計 開発)
+  else
+    puts "正しい引数を指定してください。"
+    exit!
   end
 
 tags.each do |tag|
   p "Starting to get: " + tag
-  url = URI.encode "http://b.hatena.ne.jp/search/tag?safe=on&q=#{tag}&users=20"
+  url = URI.encode "http://b.hatena.ne.jp/search/tag?safe=on&q=#{tag}&users=3"
   # タグ1つあたり平均1件ほどブクマされるように絞り込み
 
   html = open(
