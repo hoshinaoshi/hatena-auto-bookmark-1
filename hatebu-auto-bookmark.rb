@@ -17,6 +17,8 @@ tags = # ブクマパターンを変えてカモフラージュ
     %w(activerecord aws dev ラーメン development 歴史 docker git github 犯罪 linux 雑談 これはひどい ジェンダー mysql node.js npm programming qiita rails react ruby sql vue vue.js ネット webアプリケーション ネタ webデザイン web制作 エディタ エンジニア 大阪 東京 人生 コンテナ サーバ プログラミング 設計 開発)
   elsif arg == "rhodia"
     %w(database db カメラ design dev development docker オカルト frontend git github html html5 お金 javascript js linux macos qiita tech techfeed technology ubuntu ui ux vue vue.js web webdesign webpack webアプリケーション 海外 webデザイン web制作 エディタ エンジニア コンテナ サーバ システム コーヒー デザイン フロントエンド プログラミング 設計 開発)
+  elsif arg == "ellie"
+    %w(aws ねこ 猫 database db 東京 dev development 京都 docker git github sql 機械学習 仕事 web webdesign コーヒー 犬 データサイエンス webpack webアプリケーション エンジニア コンテナ サーバ システム データ 設計 開発  データ分析 イラスト マンガ)
   else
     puts "正しい引数を指定してください。"
     exit!
