@@ -7,11 +7,11 @@ require "json"
 
 creds = JSON.load(File.read("credentials.json"))
 
-# %w(activerecord aws bootstrap css css3 database db design dev development docker font frontend git github html html5 javascript js linux macos mysql node.js npm postgresql programming qiita rails react ruby sql tech techfeed technology ubuntu ui ux vue vue.js web webdesign webpack webアプリケーション webデザイン web制作 エディタ エンジニア コンテナ サーバ システム デザイン データ フォント フロントエンド プログラミング 設計 開発)
-
 arg = ARGV[0]
 tags = # ブクマパターンを変えてカモフラージュ
-  if arg == "adele"
+  if arg == "original"
+    %w(activerecord aws bootstrap css css3 database db design dev development docker font frontend git github html html5 javascript js linux macos mysql node.js npm postgresql programming qiita rails react ruby sql tech techfeed technology ubuntu ui ux vue vue.js web webdesign webpack webアプリケーション webデザイン web制作 エディタ エンジニア コンテナ サーバ システム デザイン データ フォント フロントエンド プログラミング 設計 開発)
+  elsif arg == "adele"
     %w(bootstrap css css3 犬 かわいい 中国 design font frontend git github html 写真 出版 アイドル html5 javascript js node.js react ubuntu ui ux vue vue.js web webデザイン web制作 エディタ デザイン フォント フロントエンド)
   elsif arg == "oyasumi"
     %w(activerecord aws dev ラーメン development 歴史 docker git github 犯罪 linux 雑談 これはひどい ジェンダー mysql node.js npm programming qiita rails react ruby sql vue vue.js ネット webアプリケーション ネタ webデザイン web制作 エディタ エンジニア 大阪 東京 人生 コンテナ サーバ プログラミング 設計 開発)
