@@ -8,3 +8,6 @@
 - adele (ネットワークがPIXTA-GUESTのWiFiのとき)
 - ellie ( ネットワークが401HW のWiFiのとき)  
 のどれかを指定すると、ブクマするユーザを指定できます。
+
+# crontabから実行
+credentialsのパスを条件分岐したので、crontabから正しく実行できるようになりました。(18/6/19)
