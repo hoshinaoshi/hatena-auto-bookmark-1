@@ -5,7 +5,8 @@ require "date"
 require "pry"
 require "json"
 
-creds = JSON.load(File.read("credentials.json"))
+Dir.pwd.include?("hatena-auto-bookmark")? pwd = Dir.pwd : pwd = Dir.pwd + "/hatena-auto-bookmark"
+creds = JSON.load(File.read(pwd + "/credentials.json"))
 
 arg = ARGV[0]
 tags = # ブクマパターンを変えてカモフラージュ
